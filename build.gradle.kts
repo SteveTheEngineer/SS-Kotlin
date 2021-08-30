@@ -8,10 +8,7 @@ plugins {
 }
 
 group = "me.ste.stevesseries"
-version = System.getenv("BUILD_NUMBER")
-if(version == "unspecified") {
-    version = "0"
-}
+version = "1.17.1-1.0.0-1.15.30"
 
 repositories {
     mavenCentral()
@@ -19,13 +16,13 @@ repositories {
     maven(url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots")
 }
 
-val kotlinVersion = "1.4.30"
+val kotlinVersion = "1.5.30"
 
 dependencies {
     shadow("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
 
-    implementation("net.md-5:bungeecord-api:1.16-R0.5-SNAPSHOT")
-    implementation("org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT")
+    implementation("net.md-5:bungeecord-api:1.17-R0.1-SNAPSHOT")
+    implementation("org.spigotmc:spigot-api:1.17.1-R0.1-SNAPSHOT")
 }
 
 tasks.shadowJar {
@@ -45,10 +42,5 @@ tasks.processResources {
         include("kotlin.yml")
 
         filter<ReplaceTokens>("tokens" to hashMapOf("version" to version, "ktversion" to kotlinVersion))
-    }
-    from(sourceSets.main.get().allSource.srcDirs) {
-        include("me/ste/stevesseries/kotlin/SSKotlin.kt")
-
-        filter<ReplaceTokens>("tokens" to hashMapOf("version" to version))
     }
 }
