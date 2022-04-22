@@ -75,17 +75,18 @@ tasks.processResources {
 publishing {
     repositories {
         maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/SteveTheEngineer/SS-Kotlin")
+            name = "SteenePublic"
+            url = uri("https://mvn-public.steenesvc.cf/releases")
+
             credentials {
-                username = (project.findProperty("gpr.user") ?: System.getenv("USERNAME"))?.toString()
-                password = (project.findProperty("gpr.key") ?: System.getenv("TOKEN"))?.toString()
+                username = System.getenv("REPO_USERNAME")
+                password = System.getenv("REPO_PASSWORD")
             }
         }
     }
     publications {
-        create<MavenPublication>("gpr") {
-            artifactId = "kotlin-universal"
+        create<MavenPublication>("plugin") {
+            artifactId = "kotlin"
 
             from(components.getByName("java"))
         }

@@ -26,10 +26,10 @@ jobs:
         with:
           arguments: build
 
-      - name: Publish to GitHub Packages
+      - name: Publish to Steene Public
         uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
         with:
           arguments: publish
         env:
-          USERNAME: ${{ github.actor }}
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: ${{ secrets.REPO_USERNAME }}
+          TOKEN: ${{ secrets.REPO_PASSWORD }}
