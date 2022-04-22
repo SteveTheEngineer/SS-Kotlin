@@ -1,0 +1,5 @@
+name: SS-Kotlin
+main: me.ste.stevesseries.kotlin.bungee.KotlinBungeePlugin
+version: @version@
+author: SteveTheEngineer
+description: Provides the kotlin standard library.

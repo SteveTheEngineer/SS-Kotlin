@@ -1,6 +1,0 @@
-name: SS-Kotlin
-main: me.ste.stevesseries.kotlin.KotlinBukkit
-version: @version@
-authors: [SteveTheEngineer]
-description: Provides the kotlin standard library
-api-version: 1.13

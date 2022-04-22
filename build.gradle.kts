@@ -1,31 +1,53 @@
 import org.apache.tools.ant.filters.ReplaceTokens
-import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
+import org.jetbrains.kotlin.gradle.plugin.KotlinPluginWrapper
 
 plugins {
     id("java-library")
-    id("com.github.johnrengelman.shadow") version "6.1.0"
-    id("org.jetbrains.kotlin.jvm") version "1.4.30"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+    kotlin("jvm")
+    kotlin("plugin.serialization")
 }
 
-group = "me.ste.stevesseries"
-version = "1.17.1-1.0.0-1.15.30"
+val kotlinVersion: String by ext
+val kotlinxSerializationVersion: String by ext
+val kotlinxCoroutinesVersion: String by ext
 
-repositories {
-    mavenCentral()
-    maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
-    maven(url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots")
+group = "me.ste.stevesseries.kotlin"
+version = kotlinVersion
+
+allprojects {
+    apply<KotlinPluginWrapper>()
+
+    repositories {
+        mavenCentral()
+        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
+        maven(url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots")
+    }
 }
-
-val kotlinVersion = "1.5.30"
 
 dependencies {
-    shadow("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
+    shadow(kotlin("stdlib"))
+    shadow(kotlin("reflect"))
+    shadow(kotlin("serialization"))
 
-    implementation("net.md-5:bungeecord-api:1.17-R0.1-SNAPSHOT")
-    implementation("org.spigotmc:spigot-api:1.17.1-R0.1-SNAPSHOT")
+    shadow("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion")
+    shadow("org.jetbrains.kotlinx:kotlinx-serialization-protobuf:$kotlinxSerializationVersion")
+    shadow("org.jetbrains.kotlinx:kotlinx-serialization-cbor:$kotlinxSerializationVersion")
+    shadow("org.jetbrains.kotlinx:kotlinx-serialization-properties:$kotlinxSerializationVersion")
+    shadow("org.jetbrains.kotlinx:kotlinx-serialization-hocon:$kotlinxSerializationVersion")
+
+    shadow("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutinesVersion")
 }
 
 tasks.shadowJar {
+    dependsOn(*subprojects.map { it.tasks.jar.get() }.toTypedArray())
+
+    for (subproject in subprojects) {
+        from(subproject.configurations.archives.get().allArtifacts.files.map {
+            zipTree(it)
+        })
+    }
+
     configurations = listOf(project.configurations.shadow.get())
     archiveClassifier.set(null as String?)
 }
@@ -36,10 +58,14 @@ tasks.jar {
 }
 
 tasks.processResources {
+    inputs.property("kotlinVersion", kotlinVersion)
+    inputs.property("version", version)
+
     from(sourceSets.main.get().resources.srcDirs) {
         include("bungee.yml")
-        include("plugin.yml")
         include("kotlin.yml")
+
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
 
         filter<ReplaceTokens>("tokens" to hashMapOf("version" to version, "ktversion" to kotlinVersion))
     }
