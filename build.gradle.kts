@@ -6,6 +6,7 @@ plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
     kotlin("jvm")
     kotlin("plugin.serialization")
+    `maven-publish`
 }
 
 val kotlinVersion: String by ext
@@ -68,5 +69,23 @@ tasks.processResources {
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
 
         filter<ReplaceTokens>("tokens" to hashMapOf("version" to version, "ktversion" to kotlinVersion))
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/SteveTheEngineer/SS-Kotlin")
+            credentials {
+                username = (project.findProperty("gpr.user") ?: System.getenv("USERNAME"))?.toString()
+                password = (project.findProperty("gpr.key") ?: System.getenv("TOKEN"))?.toString()
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("gpr") {
+            from(components.getByName("java"))
+        }
     }
 }
