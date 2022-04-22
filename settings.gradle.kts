@@ -5,7 +5,7 @@ pluginManagement {
 
     repositories {
         gradlePluginPortal()
-        mavenLocal()
+        maven("https://mvn-public.steenesvc.cf/releases")
     }
 
     plugins {
