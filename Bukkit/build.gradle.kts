@@ -12,7 +12,8 @@ dependencies {
 }
 
 pluginDescription {
+    name.set(rootProject.name)
     mainClass.set("me.ste.stevesseries.kotlin.bukkit.KotlinBukkitPlugin")
-    apiVersion.set("1.18")
+    apiVersion.set("1.14")
     authors.add("SteveTheEngineer")
 }
