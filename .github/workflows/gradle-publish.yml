@@ -31,5 +31,5 @@ jobs:
         with:
           arguments: publish
         env:
-          USERNAME: ${{ secrets.REPO_USERNAME }}
-          TOKEN: ${{ secrets.REPO_PASSWORD }}
+          REPO_USERNAME: ${{ secrets.REPO_USERNAME }}
+          REPO_PASSWORD: ${{ secrets.REPO_PASSWORD }}
