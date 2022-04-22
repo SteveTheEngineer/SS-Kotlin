@@ -88,7 +88,7 @@ publishing {
         create<MavenPublication>("plugin") {
             artifactId = "kotlin"
 
-            from(components.getByName("java"))
+            project.shadow.component(this)
         }
     }
 }
