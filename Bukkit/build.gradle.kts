@@ -1,6 +1,6 @@
 plugins {
     id("kotlin")
-    id("me.ste.stevesseries.bukkitgradle") version "1.0"
+    id("com.github.SteveTheEngineer.SS-BukkitGradle") version "1.4"
 }
 
 group = "me.ste.stevesseries.kotlin"
@@ -8,7 +8,7 @@ version = rootProject.version
 description = "Provides the kotlin standard library."
 
 dependencies {
-    implementation("org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT")
+    implementation("org.spigotmc:spigot-api:1.14-R0.1-SNAPSHOT")
 }
 
 pluginDescription {

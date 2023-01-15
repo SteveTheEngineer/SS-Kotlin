@@ -71,24 +71,3 @@ tasks.processResources {
         filter<ReplaceTokens>("tokens" to hashMapOf("version" to version, "ktversion" to kotlinVersion))
     }
 }
-
-publishing {
-    repositories {
-        maven {
-            name = "SteenePublic"
-            url = uri("https://mvn-public.steenesvc.cf/releases")
-
-            credentials {
-                username = System.getenv("REPO_USERNAME")
-                password = System.getenv("REPO_PASSWORD")
-            }
-        }
-    }
-    publications {
-        create<MavenPublication>("plugin") {
-            artifactId = "kotlin"
-
-            project.shadow.component(this)
-        }
-    }
-}
