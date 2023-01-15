@@ -71,3 +71,13 @@ tasks.processResources {
         filter<ReplaceTokens>("tokens" to hashMapOf("version" to version, "ktversion" to kotlinVersion))
     }
 }
+
+publishing {
+    publications {
+        create<MavenPublication>("plugin") {
+            artifactId = "kotlin"
+
+            project.shadow.component(this)
+        }
+    }
+}
