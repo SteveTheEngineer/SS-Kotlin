@@ -44,6 +44,10 @@ tasks.shadowJar {
     dependsOn(*subprojects.map { it.tasks.jar.get() }.toTypedArray())
 
     for (subproject in subprojects) {
+        if (subproject.name == "BukkitCompat") {
+            continue
+        }
+
         from(subproject.configurations.archives.get().allArtifacts.files.map {
             zipTree(it)
         })
@@ -66,7 +70,7 @@ tasks.processResources {
         include("bungee.yml")
         include("kotlin.yml")
 
-        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        duplicatesStrategy = DuplicatesStrategy.WARN
 
         filter<ReplaceTokens>("tokens" to hashMapOf("version" to version, "ktversion" to kotlinVersion))
     }

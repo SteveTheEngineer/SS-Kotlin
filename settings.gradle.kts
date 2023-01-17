@@ -15,3 +15,4 @@ pluginManagement {
 }
 include("Bukkit")
 include("Bungee")
+include("BukkitCompat")
