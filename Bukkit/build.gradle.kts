@@ -1,6 +1,6 @@
 plugins {
     id("kotlin")
-    id("com.github.SteveTheEngineer.SS-BukkitGradle") version "1.4"
+    id("com.github.SteveTheEngineer.SS-BukkitGradle") version "1.5"
 }
 
 group = "me.ste.stevesseries.kotlin"

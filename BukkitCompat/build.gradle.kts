@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
 
 plugins {
     id("kotlin")
-    id("com.github.SteveTheEngineer.SS-BukkitGradle") version "1.4"
+    id("com.github.SteveTheEngineer.SS-BukkitGradle") version "1.5"
     id("com.github.johnrengelman.shadow") version "7.1.2"
     `maven-publish`
 }
