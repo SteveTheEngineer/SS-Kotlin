@@ -21,6 +21,12 @@ pluginDescription {
     mainClass.set("me.ste.stevesseries.kotlin.bukkit.KotlinBukkitPlugin")
     apiVersion.set("1.14")
     authors.add("SteveTheEngineer")
+
+    additionalSoftDependencies.add("kotlin-stdlib")
+    additionalSoftDependencies.add("eco")
+    additionalSoftDependencies.add("KotlinLib")
+    additionalSoftDependencies.add("KLibs")
+    additionalSoftDependencies.add("Kotlin")
 }
 
 publishing {
